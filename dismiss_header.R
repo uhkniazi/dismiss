@@ -78,10 +78,16 @@ f_mFastCountMateReadsOverRanges = function(gr.signal, bam.file, bPaired=T){
 #       skip.lines: by default MACS2 has 22 lines of comments
 #       separator: by default it is a tab separated file
 # Rets: a data frame with data
-f_dfReadMACS2xls = function(xls.file, skip.lines=22, separator='\t'){
+f_dfReadMACS2xls = function(xls.file, separator='\t'){
   # read the data in MACS2 xls file
-  # it is a tab separated file with 22 lines of comments
-  df = read.csv(file=xls.file, header=T, sep=separator, skip=skip.lines)
+  # it is a tab separated file with n lines of comments
+  # the comment lines start with a #, so skip these lines
+  infile = file(xls.file, 'rt')
+  input = readLines(infile, n = 1000)
+  n = grep('^#', x = input)
+  close(infile)
+  # we have n lines of comments, so skip n+1 lines  
+  df = read.csv(file=xls.file, header=T, sep=separator, skip=length(n)+1)
   return(df)
 } # function
 
@@ -92,9 +98,9 @@ f_dfReadMACS2xls = function(xls.file, skip.lines=22, separator='\t'){
 #       skip.lines: by default MACS2 has 22 lines of comments
 #       separator: by default it is a tab separated file
 # Rets: a Granges object of MACS2 xls data
-f_oGRMACS2toGRanges = function(xls.file, skip.lines=22, separator='\t'){
+f_oGRMACS2toGRanges = function(xls.file, separator='\t'){
   # use previously defined function to read data frame
-  df = f_dfReadMACS2xls(xls.file, skip.lines, separator)
+  df = f_dfReadMACS2xls(xls.file, separator)
   # convert data frame to GRanges object
   gr = GRanges(seqnames=as.character(df$chr), ranges=IRanges(df$start, df$end))
   dt = DataFrame(abs_summit=df$abs_summit, pileup=df$pileup, 
