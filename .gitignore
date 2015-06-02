@@ -5,6 +5,15 @@
 # R data files from past sessions
 .Rdata
 # RStudio files
+*.Rproj
 .Rproj.user/
 .Rproj.user
+
+# files
 temp.R
+
+# directories
+Test_data/
+
+# misc
+dismiss_manual.pdf
