@@ -14,6 +14,8 @@ temp.R
 
 # directories
 Test_data/
+Temp/
+Bee_data/
 
 # misc
 dismiss_manual.pdf
