@@ -9,7 +9,6 @@ if (!require(GenomicAlignments) || !require(GenomicFeatures) || !require(rtrackl
   stop(paste('Bioconductor libraries GenomicAlignments, GenomicFeatures and rtracklayer required\n
              visit http://www.bioconductor.org/install/ for instructions.'))}
 
-#source('~/Dropbox/Home/Data/R/My_Libraries/NGS_functions.R')
 source('dismiss_header.R')
 
 ##### PATHS
