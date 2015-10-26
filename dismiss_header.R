@@ -1,3 +1,18 @@
+# Copyright (C) 2014-2015  Umar Niazi
+#   
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>
+
 # File: dismiss_header.R
 # Auth: umn@aber.ac.uk, uhkniazi@gmail.com
 # DESC: header file for user defined functions - source before calling other scripts script
