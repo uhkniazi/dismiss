@@ -66,9 +66,9 @@ getPost = function(s, f){
 }
 
 
-plus = getPost(median(plus.ot), median(plus.ob))
-minus = getPost(median(minus.ot), median(minus.ob))
-double = getPost(median(double.ot), median(double.ob))
+plus = getPost(mean(plus.ot), mean(plus.ob))
+minus = getPost(mean(minus.ot), mean(minus.ob))
+double = getPost(mean(double.ot), mean(double.ob))
 
 Plus.Stranded = sapply(plus, median)
 Minus.Stranded = sapply(minus, median)
