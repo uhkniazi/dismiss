@@ -70,19 +70,19 @@ f_mFastCountMateReadsOverRanges = function(gr.signal, bam.file, bPaired=T){
   mRets = matrix(NA, nrow=length(gr.signal), ncol=4, dimnames=list(NULL, c('mp', 'mm', 'bp', 'bm')))
   # set flag to read bam file first mates
   flag = scanBamFlag(isFirstMateRead=T)
-  if (bPaired){  bam = readGAlignmentsFromBam(bam.file, param=ScanBamParam(flag=flag, which=gr.signal))
-                 # how many reads align with + strand and - strands
-                 mRets[,'mp'] = countOverlaps(gr.signal, bam[strand(bam)=='+'])
-                 mRets[,'mm'] = countOverlaps(gr.signal, bam[strand(bam)=='-'])
+  if (bPaired){  bam = readGAlignments(bam.file, param=ScanBamParam(flag=flag, which=gr.signal))
+  # how many reads align with + strand and - strands
+  mRets[,'mp'] = countOverlaps(gr.signal, bam[strand(bam)=='+'])
+  mRets[,'mm'] = countOverlaps(gr.signal, bam[strand(bam)=='-'])
   } #if
   # now read data coming from both mates 
-  bam = readGAlignmentsFromBam(bam.file, param=ScanBamParam(which=gr.signal))
+  bam = readGAlignments(bam.file, param=ScanBamParam(which=gr.signal))
   # how many reads align with + strand and - strands
   mRets[,'bp'] = countOverlaps(gr.signal, bam[strand(bam)=='+'])
   mRets[,'bm'] = countOverlaps(gr.signal, bam[strand(bam)=='-'])
   # if data was single end read then first mates will be zero in matrix
   if (bPaired == F){ mRets[,'mp'] = mRets[,'bp']
-                     mRets[,'mm'] = mRets[,'bm'] } # if
+  mRets[,'mm'] = mRets[,'bm'] } # if
   return(mRets)  
 } # function
 
