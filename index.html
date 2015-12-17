@@ -111,8 +111,7 @@
             <li>1.3.	bPaired = a boolean (TRUE/FALSE) variable - if the data is paired end or single end.</li>
           </ul> 
           <li>2.	Count the first mate reads aligning to each range/region in the GRanges object, in a matrix called mFirstMate. <code>mFirstMate = f_mFastCountMateReadsOverRanges(oGRsignal.strand, bam.file = csFile, bPaired)</code></li>
-          <li>3.	Using the mFirstMate matrix, apply the function over each row of the matrix, to check if the first mate reads from the plus (mp) and minus (mm) strands are equal under a poisson likelihood.
-              <code>t = apply(mFirstMate[,c('mp', 'mm')], 1, f_bComparePoissonLiklihoodApply)</code></li>
+          <li>3.	Using the mFirstMate matrix, apply the function over each row of the matrix, to check if the first mate reads from the plus (mp) and minus (mm) strands are equal under a poisson likelihood.<code>t = apply(mFirstMate[,c('mp', 'mm')], 1, f_bComparePoissonLiklihoodApply)</code></li>
           <li>4.	The function f_bComparePoissonLiklihoodApply will fit a likelihood function on the two values 'mp', 'mm' for each row in mFirstMate.</li>
           <li>5.	The variable t returned by f_bComparePoissonLiklihoodApply is an array of boolean values TRUE/FALSE of length equal to the number of rows in mFirstMate, with a TRUE if the two read counts on the plus and minus sides are equal or else:</li>
           <ul>
@@ -127,20 +126,22 @@
             <li>7.3.	mm = first mate reads from minus strand</li>
             <li>7.4.	bp = both plus, reads from first and second mate on plus strand</li>
             <li>7.5.	bm = both minus, reads from first and second mate on minus strand</li>
+            <ul>
               <li>7.5.1.	bp and bm are the same as mp and mm in case of single end reads</li>
+            </ul>
             <li>7.6.	p.plus = binomial probability of fraction of reads from mp</li>
             <li>7.7.	p.minus = binomial probability of fraction of reads from mm</li>
             <ul>
               <li>7.7.1.	calculated as:</li>
-              <code>mp = mFirstMate[,'mp'] + 1 # add a one to avoid divisions by zero</code>
-              <code>mm = mFirstMate[,'mm'] + 1</code>
-              <code>n = mp + mm</code>
-              <code>p.plus = mp/n</code>
-              <code>p.minus = 1-p.plus</code>
+              <code>mp = mFirstMate[,'mp'] + 1 # add a one to avoid divisions by zero</code><br>
+              <code>mm = mFirstMate[,'mm'] + 1</code><br>
+              <code>n = mp + mm</code><br>
+              <code>p.plus = mp/n</code><br>
+              <code>p.minus = 1-p.plus</code><br>
             </ul>
           <li>8.	Other variables associated with mcols data are values already included in the oGRsignal.strand data structure by the user.</li>
-          </ul>
-          
+        </ul>
+        </ul>  
       </section>
     </div>
 
