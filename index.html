@@ -49,13 +49,14 @@
           <li>III.	Tab separated xls results file for methylated regions for peak calling performed by MACS2. </li>
           <li>IV.	Alignment file in .bam format (the same file used to perform peak calling)</li>
           <li>V.	Bam index file with .bai extension (if bam file is called file.bam then index file should be called file.bam.bai)</li>
-
+        </ul>
+        
         <p>In order to simplify the process of strand separation, a utility script dismiss_macs2_extractor.R has been provided to perform strand separation on peak calling performed on MeDIP-Seq alignment data using MACS2. The script can be run from the command line, provided the above mentioned conditions are met.</p>
 
         <code>Rscript dismiss_macs2_extractor.R MACS2_result.xls File.bam [p or s]</code>
 
         <p>where the last argument is essential and should be set to either</p>
-        <ul style="list-style-type:none">
+        <ul>
           <li>p = for paired end data OR</li>
           <li>s = for single end data</li>
         </ul>
@@ -94,9 +95,10 @@
           </ol>
           <li>Separate the strands by calling the function f_oGRSeparateStrands with arguments oGRdismiss, bam and paired variables.</li>
           <li>Save the output as three gff3 files and an R object containing oGRdismiss object.</li>
-
-          <h3>2.3.2 Involved method.</h3>
-          <p>This is recommended for users who are more familiar with R, and would like to produce Genomic Ranges objects themselves. It is assumed that these Genomic Ranges objects are ranges over the genome where methylated signal is present. This method involves the use of the function f_oGRSeparateStrands. Each of the functions used here are described in more detail later in section 3.</p>
+        </ol>
+        
+        <h3>2.3.2 Involved method.</h3>
+        <p>This is recommended for users who are more familiar with R, and would like to produce Genomic Ranges objects themselves. It is assumed that these Genomic Ranges objects are ranges over the genome where methylated signal is present. This method involves the use of the function f_oGRSeparateStrands. Each of the functions used here are described in more detail later in section 3.</p>
 
         
 1.	Call the function with arguments 
