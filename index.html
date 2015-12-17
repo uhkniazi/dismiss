@@ -28,10 +28,41 @@
 
     <div class="container">
       <section id="main_content">
-        <h1>
-<a id="dismiss" class="anchor" href="#dismiss" aria-hidden="true"><span class="octicon octicon-link"></span></a>dismiss</h1>
+        <h1><a id="dismiss" class="anchor" href="#dismiss" aria-hidden="true"><span class="octicon octicon-link"></span></a>dismiss</h1>
 
-<p>DISMISS is an R script, which as an additional step in MeDIP-Seq data analysis workflow, enables the allocation of strands to methylated DNA regions. It does this by analyzing the proportions of first mate reads aligning to the methylated locus from the plus and minus strands.</p>
+        <h2>Quick Reference</h2>
+        <p>Dismiss is a collection of functions implemented in R  and require the following to be present on the system:</p>
+          <ul>
+            <li>I.	R (version 3.1.2)</li>
+            <li>II.	Bioconductor ,  (version 3.0) with packages</li>
+            <ul>
+              <li>A.	GenomicAlignments  </li>
+              <li>B.	GenomicFeatures  </li>
+              <li>C.	rtracklayer  </li>
+            </ul>
+          </ul>
+
+        <p>To run dismiss, the following files should be in the current path or directory:</p>
+        <ul>
+          <li>I.	dismiss_header.R (the script with all the required functions)</li>
+          <li>II.	dismiss_macs2_extractor.R (utility script to process MACS2  results)</li>
+          <li>III.	Tab separated xls results file for methylated regions for peak calling performed by MACS2. </li>
+          <li>IV.	Alignment file in .bam format (the same file used to perform peak calling)</li>
+          <li>V.	Bam index file with .bai extension (if bam file is called file.bam then index file should be called file.bam.bai)</li>
+
+        <p>In order to simplify the process of strand separation, a utility script dismiss_macs2_extractor.R has been provided to perform strand separation on peak calling performed on MeDIP-Seq alignment data using MACS2. The script can be run from the command line, provided the above mentioned conditions are met.</p>
+
+        <code>Rscript dismiss_macs2_extractor.R MACS2_result.xls File.bam [p or s]</code>
+
+        <p>where the last argument is essential and should be set to either</p>
+        <ul style="list-style-type:none">
+          <li>p = for paired end data OR</li>
+          <li>s = for single end data</li>
+        </ul>
+        
+        <p>The functions provided with the script dismiss_header.R can be used directly in one’s own R scripts, and strand separation performed on ranged data of GRanges object type. This ranged data would have been produced by a MeDIP-Seq analysis software of choice e.g. MEDIPS , MACS2 etc. (see section 2.3 for description of the function to call)</p>
+
+
       </section>
     </div>
 
