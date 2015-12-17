@@ -120,27 +120,27 @@
             <li>5.2.	Else assign to minus strand.</li>
           </ul>
           <li>6.	Set the strand value for each GRanges index to *, + or - depending on the results from step 5.</li>
-          <li>7.	Add some additional information to the mcols data of oGRsignal.strand<li>
+          <li>7.	Add some additional information to the mcols data of oGRsignal.strand</li>
           <ul>
             <li>7.1.	strand_fac = 2 (both), 1 (plus), 0 (minus) - factor variable to represent strands</li>
             <li>7.2.	mp = first mate reads from plus strand</li>
-<li>7.3.	mm = first mate reads from minus strand</li>
-<li>7.4.	bp = both plus, reads from first and second mate on plus strand</li>
-<li>7.5.	bm = both minus, reads from first and second mate on minus strand</li>
-<li>7.5.1.	bp and bm are the same as mp and mm in case of single end reads</li>
-<li>7.6.	p.plus = binomial probability of fraction of reads from mp</li>
-<li>7.7.	p.minus = binomial probability of fraction of reads from mm</li>
-<li>7.7.1.	calculated as:</li>
-<code>mp = mFirstMate[,'mp'] + 1 # add a one to avoid divisions by zero
-mm = mFirstMate[,'mm'] + 1
-n = mp + mm
-p.plus = mp/n
-p.minus = 1-p.plus</code>
-<li>8.	Other variables associated with mcols data are values already included in the oGRsignal.strand data structure by the user.</li>
+            <li>7.3.	mm = first mate reads from minus strand</li>
+            <li>7.4.	bp = both plus, reads from first and second mate on plus strand</li>
+            <li>7.5.	bm = both minus, reads from first and second mate on minus strand</li>
+              <li>7.5.1.	bp and bm are the same as mp and mm in case of single end reads</li>
+            <li>7.6.	p.plus = binomial probability of fraction of reads from mp</li>
+            <li>7.7.	p.minus = binomial probability of fraction of reads from mm</li>
+            <ul>
+              <li>7.7.1.	calculated as:</li>
+              <code>mp = mFirstMate[,'mp'] + 1 # add a one to avoid divisions by zero
+              mm = mFirstMate[,'mm'] + 1
+              n = mp + mm
+              p.plus = mp/n
+              p.minus = 1-p.plus</code>
+            </ul>
+            <li>8.	Other variables associated with mcols data are values already included in the oGRsignal.strand data structure by the user.</li>
           </ul>
-
-
-
+          
       </section>
     </div>
 
