@@ -89,7 +89,7 @@
             <li>paired = TRUE; if the command line argument was p or else s</li>
           </ol>
           <li>Source the main script with all functions dismiss_header.R</li>
-          <li></li>Set the Genomic Ranges object oGRdismiss</li>
+          <li>Set the Genomic Ranges object oGRdismiss</li>
           <ol>
             <li>Call function f_oGRMACS2toGRanges with argument macs, to convert tab separated ranged data into a GRanges object oGRdismiss</li>
           </ol>
@@ -112,10 +112,10 @@
           </ul> 
           <li>2.	Count the first mate reads aligning to each range/region in the GRanges object, in a matrix called mFirstMate. <code>mFirstMate = f_mFastCountMateReadsOverRanges(oGRsignal.strand, bam.file = csFile, bPaired)</code></li>
           <li>3.	Using the mFirstMate matrix, apply the function over each row of the matrix, to check if the first mate reads from the plus (mp) and minus (mm) strands are equal under a poisson likelihood.<code>t = apply(mFirstMate[,c('mp', 'mm')], 1, f_bComparePoissonLiklihoodApply)</code></li>
-          <li>4.	The function f_bComparePoissonLiklihoodApply will fit a likelihood function on the two values 'mp', 'mm' for each row in mFirstMate.</li>
-          <li>5.	The variable t returned by f_bComparePoissonLiklihoodApply is an array of boolean values TRUE/FALSE of length equal to the number of rows in mFirstMate, with a TRUE if the two read counts on the plus and minus sides are equal or else:</li>
+          <li>4.	The function <code>f_bComparePoissonLiklihoodApply</code> will fit a likelihood function on the two values <code>'mp'</code>, <code>'mm'</code> for each row in <code>mFirstMate</code>.</li>
+          <li>5.	The variable <code>t</code> returned by <code>f_bComparePoissonLiklihoodApply</code> is an array of boolean values TRUE/FALSE of length equal to the number of rows in mFirstMate, with a TRUE if the two read counts on the plus and minus sides are equal or else:</li>
           <ul>
-            <li>5.1.	Assign the peak range to plus if mFirstMate[i,'mp'] > mFirstMate[i,'mm'].</li>
+            <li>5.1.	Assign the peak range to plus if <code>mFirstMate[i,'mp'] > mFirstMate[i,'mm']</code>.</li>
             <li>5.2.	Else assign to minus strand.</li>
           </ul>
           <li>6.	Set the strand value for each GRanges index to *, + or - depending on the results from step 5.</li>
