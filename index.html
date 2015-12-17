@@ -113,27 +113,33 @@
           <li>2.	Count the first mate reads aligning to each range/region in the GRanges object, in a matrix called mFirstMate. <code>mFirstMate = f_mFastCountMateReadsOverRanges(oGRsignal.strand, bam.file = csFile, bPaired)</code></li>
           <li>3.	Using the mFirstMate matrix, apply the function over each row of the matrix, to check if the first mate reads from the plus (mp) and minus (mm) strands are equal under a poisson likelihood.
               <code>t = apply(mFirstMate[,c('mp', 'mm')], 1, f_bComparePoissonLiklihoodApply)</code></li>
-4.	The function f_bComparePoissonLiklihoodApply will fit a likelihood function on the two values 'mp', 'mm' for each row in mFirstMate.
-5.	The variable t returned by f_bComparePoissonLiklihoodApply is an array of boolean values TRUE/FALSE of length equal to the number of rows in mFirstMate, with a TRUE if the two read counts on the plus and minus sides are equal or else:
-5.1.	Assign the peak range to plus if mFirstMate[i,'mp'] > mFirstMate[i,'mm'].
-5.2.	Else assign to minus strand.
-6.	Set the strand value for each GRanges index to *, + or - depending on the results from step 5.
-7.	Add some additional information to the mcols data of oGRsignal.strand
-7.1.	strand_fac = 2 (both), 1 (plus), 0 (minus) - factor variable to represent strands
-7.2.	mp = first mate reads from plus strand
-7.3.	mm = first mate reads from minus strand
-7.4.	bp = both plus, reads from first and second mate on plus strand
-7.5.	bm = both minus, reads from first and second mate on minus strand
-7.5.1.	bp and bm are the same as mp and mm in case of single end reads
-7.6.	p.plus = binomial probability of fraction of reads from mp
-7.7.	p.minus = binomial probability of fraction of reads from mm
-7.7.1.	calculated as:
-mp = mFirstMate[,'mp'] + 1 # add a one to avoid divisions by zero
+          <li>4.	The function f_bComparePoissonLiklihoodApply will fit a likelihood function on the two values 'mp', 'mm' for each row in mFirstMate.</li>
+          <li>5.	The variable t returned by f_bComparePoissonLiklihoodApply is an array of boolean values TRUE/FALSE of length equal to the number of rows in mFirstMate, with a TRUE if the two read counts on the plus and minus sides are equal or else:</li>
+          <ul>
+            <li>5.1.	Assign the peak range to plus if mFirstMate[i,'mp'] > mFirstMate[i,'mm'].</li>
+            <li>5.2.	Else assign to minus strand.</li>
+          </ul>
+          <li>6.	Set the strand value for each GRanges index to *, + or - depending on the results from step 5.</li>
+          <li>7.	Add some additional information to the mcols data of oGRsignal.strand<li>
+          <ul>
+            <li>7.1.	strand_fac = 2 (both), 1 (plus), 0 (minus) - factor variable to represent strands</li>
+            <li>7.2.	mp = first mate reads from plus strand</li>
+<li>7.3.	mm = first mate reads from minus strand</li>
+<li>7.4.	bp = both plus, reads from first and second mate on plus strand</li>
+<li>7.5.	bm = both minus, reads from first and second mate on minus strand</li>
+<li>7.5.1.	bp and bm are the same as mp and mm in case of single end reads</li>
+<li>7.6.	p.plus = binomial probability of fraction of reads from mp</li>
+<li>7.7.	p.minus = binomial probability of fraction of reads from mm</li>
+<li>7.7.1.	calculated as:</li>
+<code>mp = mFirstMate[,'mp'] + 1 # add a one to avoid divisions by zero
 mm = mFirstMate[,'mm'] + 1
 n = mp + mm
 p.plus = mp/n
-p.minus = 1-p.plus
-8.	Other variables associated with mcols data are values already included in the oGRsignal.strand data structure by the user.
+p.minus = 1-p.plus</code>
+<li>8.	Other variables associated with mcols data are values already included in the oGRsignal.strand data structure by the user.</li>
+          </ul>
+
+
 
       </section>
     </div>
