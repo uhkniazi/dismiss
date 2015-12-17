@@ -75,7 +75,7 @@
         </code>
         <p>The bioconductor packages GenomicAlignments, GenomicFeatures and rtracklayer can each be installed after these steps by typing e.g.</p>
         <code>biocLite("GenomicAlignments") </code>
-
+        <p></p>
         <h3>2.3 How does it work</h3>
         <p>DISMISS can be used in two ways: 1) a more simplified script that processes results from MACS2 and outputs results as an R object and gff3 files - using dismiss_macs2_extractor.R; 2) a more involved method where the functions can be called directly in R. </p>
 
@@ -100,14 +100,18 @@
         <h3>2.3.2 Involved method.</h3>
         <p>This is recommended for users who are more familiar with R, and would like to produce Genomic Ranges objects themselves. It is assumed that these Genomic Ranges objects are ranges over the genome where methylated signal is present. This method involves the use of the function f_oGRSeparateStrands. Each of the functions used here are described in more detail later in section 3.</p>
 
-        
-1.	Call the function with arguments 
-1.1.	oGRsignal.strand = a GRanges object that has the strand value set to * (i.e. double stranded).
-1.2.	csFile = a character string with the name of the bam file e.g. infile.bam
-1.2.1.	the function assumes that there is a bam index file infile.bam.bai in the same directory
-1.3.	bPaired = a boolean (TRUE/FALSE) variable - if the data is paired end or single end.
-2.	Count the first mate reads aligning to each range/region in the GRanges object, in a matrix called mFirstMate.
-mFirstMate = f_mFastCountMateReadsOverRanges(oGRsignal.strand, bam.file = csFile, bPaired)
+        <ul>
+          <li>1.	Call the function with arguments</li>
+          <ul>
+            <li>1.1.	oGRsignal.strand = a GRanges object that has the strand value set to * (i.e. double stranded).</li>
+            <li>1.2.	csFile = a character string with the name of the bam file e.g. infile.bam</li>
+            <ul>
+              <li>1.2.1.	the function assumes that there is a bam index file infile.bam.bai in the same directory</li>
+            </ul>
+            <li>1.3.	bPaired = a boolean (TRUE/FALSE) variable - if the data is paired end or single end.</li>
+          </ul> 
+          <li><p>2.	Count the first mate reads aligning to each range/region in the GRanges object, in a matrix called mFirstMate.</p>
+              <code>mFirstMate = f_mFastCountMateReadsOverRanges(oGRsignal.strand, bam.file = csFile, bPaired)</code></li>
 3.	Using the mFirstMate matrix, apply the function over each row of the matrix, to check if the first mate reads from the plus (mp) and minus (mm) strands are equal under a poisson likelihood.
 t = apply(mFirstMate[,c('mp', 'mm')], 1, f_bComparePoissonLiklihoodApply)
 4.	The function f_bComparePoissonLiklihoodApply will fit a likelihood function on the two values 'mp', 'mm' for each row in mFirstMate.
