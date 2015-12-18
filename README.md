@@ -39,6 +39,6 @@ where the last argument is essential and should be set to either;
 ##Additional Information
   
 <ul>
-    <li>dismiss on Galaxy http://share-galaxy.ibers.aber.ac.uk</li>
+    <li>dismiss on Galaxy http://share-galaxy.ibers.aber.ac.uk/dismiss</li>
     <li>Manual http://uhkniazi.github.io/dismiss</li>
 </ul>
