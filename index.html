@@ -63,6 +63,28 @@
         
         <p>The functions provided with the script dismiss_header.R can be used directly in one’s own R scripts, and strand separation performed on ranged data of GRanges object type. This ranged data would have been produced by a MeDIP-Seq analysis software of choice e.g. MEDIPS , MACS2 etc. (see section 2.3 for description of the function to call)</p>
 
+	<h2>Outputs:</h2>
+	<p>The script dismiss_macs2_extractor.R will produce four output files with the current time and date added as postfix to the names:</p>
+	<ul>
+		<li>1. oGRdismiss_[time.date].rds <br>An R object of class GRanges, that has a double, plus or minus strand assigned to each peak region and can be used in one’s own scripts for further processing.</li>
+		<li>2. oGRdismiss_[time.date]_double_st.gff3</li>
+		<li>3. oGRdismiss_[time.date]_minus_st.gff3</li>
+		<li>4. oGRdismiss_[time.date]_plus_st.gff3</li>
+	</ul>
+
+	<p>The three .gff31 format files contains methylated regions separated into double, minus and plus stranded parts. These files can easily be imported into genome browsers as tracks for analysis or converted to other suitable formats for further processing.</p>
+
+	<h3>GFF3 file additional information:</h3>
+	<p>The following additional information is present for each record entry in the gff3 file. Values 1 to 4 are the ones provided by MACS2 in the original results.</p>
+
+	<ul>
+		<li>1. abs_summit = coordinates for the absolute peak summit originally provided by MACS2.</li>
+		<li>2. pileup = read pileup calculated by MACS2.</li>
+		<li>3. fold_enrichment = log fold enrichment of the current peak compared to background - see MACS2 manual for details of this variable</li>
+		<li>4. neg.log10.qval = Adjusted p.values (qvalues) after multiple testing correction for each peak provided by MACS2 on -1 X log10(qvalue) scale. </li>
+		<li>5. Additional 7 calculated values by dismiss - see section 2.3.2, point number 7 for details of each variable.  </li>
+	</ul>
+
         <h2>2.0 General Information</h2>
         <h3>2.1 What is DISMISS</h3>
         <p>DISMISS, which as an additional step in MeDIP-Seq data analysis workflow, enables the allocation of  strands to methylated DNA regions. It does this by analyzing analysing the proportions of of first mate read aligning to the methylated locus from the plus and minus strands.</p>
