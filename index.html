@@ -147,7 +147,7 @@
         
         <h3>3.1 f_bComparePoissonLiklihoodApply</h3>
 
-        <li>f_bComparePoissonLiklihoodApply = function(ivVector, cutoff=0.2)</li>
+        <p><code>f_bComparePoissonLiklihoodApply = function(ivVector, cutoff=0.2)</code></p>
 
         <b>Arguments:</b> 
         <p>ivVector = integer vector of size 2 where each value represents the first mate read count from the plus and minus strands</p>
@@ -157,6 +157,27 @@
 
         <b>Rets: </b>
         <p>Returns true if the two values are equal.</p>
+        
+        <h3>3.2 f_mFastCountMateReadsOverRanges</h3>
+
+        <p><code>f_mFastCountMateReadsOverRanges = function(gr.signal, bam.file, bPaired=T)</code></p>
+        <b>Arguments:</b>
+        <p>gr.signal = Genomic Ranges object of class GRanges, which would be a set of ranges with strand value *, over which counting is done</p>
+        <p>bam.file = alignment file in bam format, expects the bam index file with same name and .bai extension in the directory </p>
+        <p>bPaired = T - boolean value, set true if paired end or else set false for single end reads</p>
+
+        <b>Description:</b>
+        <p>It uses a GRanges object (typically calculated by a peak caller e.g. MACS) and using the alignment data, creates a matrix that contains first mate reads from plus and minus strands (mp, mm) and number of reads from both mates (bp, bm). For single end data both mp = bp and mm = bm.</p>
+
+        <b>Rets:</b>
+        <p>Returns a matrix with count data</p>
+
+        <p><code>mRets = matrix(NA, nrow=length(gr.signal), ncol=4, dimnames=list(NULL, c('mp', 'mm', 'bp', 'bm')))</code></p>
+
+        <h3>3.3 f_oGRSeparateStrands</h3>
+        <p>Main function that performs strand separation, and uses functions in sections 3.1 and 3.2 to perform these tasks. The details of the function are explained in section 2.3.2.<p>
+
+          
       </section>
     </div>
 
