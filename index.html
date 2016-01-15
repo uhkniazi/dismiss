@@ -158,6 +158,12 @@
         <b>Rets: </b>
         <p>Returns true if the two values are equal.</p>
         
+	<img src="figure1.png">
+
+	<p><b>Figure 1:</b> The figure shows a likelihood ratio plots of two read counts 40 (plus strand) and 65 (minus strand). The black line shows the plausible values of rates if the poisson rate is 40 and the red line shows plausible values of 65. The dotted blue and green lines show slices through the likelihood function i.e. the cutoff values. At a cutoff of 0.2 the two rates 40 and 65 are marginally equal and at a cutoff above this, the two rates will not be considered equal. However at a cutoff of 0.1 (blue dotted line) the two rates can be considered equal under a poisson distribution.</p>
+
+	<p>Considering Figure 1, the cutoff value can be changed according to the nature of the data sets. In our tests, a cutoff value of 0.2 (default value) gave good matches with BS-Seq data. This value can be adjusted based on the sequencing depth - if the sequencing was done deep enough then there will be good separation between signal and noise channels and a lower threshold may give good separation, and where sequencing depth is not enough then a threshold of 0.3 or higher may be more appropriate. However a relationship between the threshold cutoff and sequencing depth is an open question, and has not been explored in detail.</p>
+
         <h3>3.2 f_mFastCountMateReadsOverRanges</h3>
 
         <p><code>f_mFastCountMateReadsOverRanges = function(gr.signal, bam.file, bPaired=T)</code></p>
