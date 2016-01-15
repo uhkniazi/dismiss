@@ -141,7 +141,22 @@
             </ul>
           </ul>  
           <li>8.	Other variables associated with mcols data are values already included in the oGRsignal.strand data structure by the user.</li>
-        </ul>  
+        </ul>
+        
+        <h2>3.0 Functions</h2>
+        
+        <h3>3.1 f_bComparePoissonLiklihoodApply</h3>
+
+        <li>f_bComparePoissonLiklihoodApply = function(ivVector, cutoff=0.2)</li>
+
+        <b>Arguments:</b> 
+        <p>ivVector = integer vector of size 2 where each value represents the first mate read count from the plus and minus strands</p>
+        <p>cutoff = cutoff value for the likelihood ratio. Default value used is 0.2</p>
+        <b>Description:</b>
+        <p>The function takes two values in a vector form and checks if the the two values are equal under a poisson distribution.</p>
+
+        <b>Rets: </b>
+        <p>Returns true if the two values are equal.</p>
       </section>
     </div>
 
