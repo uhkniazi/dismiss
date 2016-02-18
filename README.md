@@ -42,3 +42,7 @@ where the last argument is essential and should be set to either;
     <li>dismiss on Galaxy http://share-galaxy.ibers.aber.ac.uk/dismiss</li>
     <li>Manual http://uhkniazi.github.io/dismiss</li>
 </ul>
+
+Example data of a completed experiment is available to download and view in IGV here;
+
+http://bioinformatics.ibers.aber.ac.uk/IGVdownloads.zip
