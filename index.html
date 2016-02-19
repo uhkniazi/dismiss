@@ -120,8 +120,55 @@
           <li>Separate the strands by calling the function f_oGRSeparateStrands with arguments oGRdismiss, bam and paired variables.</li>
           <li>Save the output as three gff3 files and an R object containing oGRdismiss object.</li>
         </ol>
-        
-        <h3>2.3.2 Involved method.</h3>
+
+	<h2>3.0 Methylation in the honey-bee genome</h2>
+
+	<p>IGV data sets to accompany the DISMISS paper are available here.</p>
+
+	<img src="images/figure1.png">
+
+        <p><b>Figure 1: </b>Screen shot of IGV with available data sets.</p>
+
+	<p>Data sets available and links for honey bee genome version Amel_4.5:</p>
+
+	<ul>
+		<li>tracks 1 & 2, methylated BS-Seq cytosines on the minus and plus strands for honey bee worker larvae calculated using Bismark;</li>
+		<li>track 3, coverage from mapped MeDIP pairs (nurse life-stage shown above); </li>
+		<li>track 4, MACS2 peaks (nurse life-stage shown above);</li>
+		<li>tracks 5 & 6, coverage from the 1st MeDIP mate only (nurse life-stage shown above);</li>
+		<li>track 7, honey bee genome features;</li>
+		<li>tracks 8-10,  DISMISS double-strand predictions for nurse, forager and reverted nurse life-stages; </li>
+		<li>tracks 11-13, DISMISS minus strand predictions for nurse, forager and reverted nurse; </li>
+                <li>tracks 14-16, DISMISS plus strand predictions nurse, forager and reverted nurse.</li>
+	</ul>
+
+	<p>Genome and GFF files are available <a href="http://bioinformatics.ibers.aber.ac.uk/IGVdownloads.zip">here</a> (735MB zipped download).</p>
+
+	<h3>3.1 Processing MeDIP datasets with DISMISS via the command line</h3>
+
+	<code>
+	## Clean with Trimmomatic<br>
+	java -Xms3G -Xmx3G -jar ./trimmomatic-0.30.jar PE -phred33 SRR850130_1.fastq SRR850130_2.fastq SRR850130_1.fastq.p SRR850130_1.fastq.unp SRR850130_2.fastq.p SRR850130_2.fastq.unp ILLUMINACLIP:./Adaptors.seq:2:30:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:4:15 MINLEN:36<br>
+	<br>
+	## Paired Data, reverted nurse<br>
+	bowtie2 --threads 8 --sensitive -I 0 -X 500 -x Amel_4.5_scaffolds.fa -1 SRR850132_1.fastq.p -2 SRR850132_2.fastq.p -S reverted.sam<br>
+	samtools view -b -q 10 -o reverted.bam reverted.sam<br>
+	samtools sort -@ 8 -T reverted.tmp -O bam reverted.bam > reverted.srt.bam<br>
+	samtools rmdup reverted.srt.bam nurse-single.rmdup.srt.bam<br>
+	samtools index reverted.rmdup.srt.bam<br>
+	<br>
+	## Run MACS2, DISMISS on reverted nurse to make DISMISS stranded GFF files<br>
+	macs2 callpeak -m 5 50 -t reverted.rmdup.srt.bam  -f BAM -g 2.3e8 -q 0.01 -n reverted<br>
+	Rscript uhkniazi-dismiss-cea5c48/dismiss_macs2_extractor.R reverted_peaks.xls revered.rmdup.srt.bam p<br>
+	<br>
+	## Make files for IGV<br>
+	bedtools genomecov -bg -ibam reverted.rmdup.srt.bam > reverted.bedgraph<br>
+	igvtools toTDF reverted.bedgraph reverted.bedgraph.tdf Amel_4.5_scaffolds.fa<br>
+	</code>
+
+	<p></p>
+
+        <h2>4.0 Involved method.</h2>
         <p>This is recommended for users who are more familiar with R, and would like to produce Genomic Ranges objects themselves. It is assumed that these Genomic Ranges objects are ranges over the genome where methylated signal is present. This method involves the use of the function f_oGRSeparateStrands. Each of the functions used here are described in more detail later in section 3.</p>
 
         <ul>
@@ -167,9 +214,9 @@
           <li>8.	Other variables associated with mcols data are values already included in the oGRsignal.strand data structure by the user.</li>
         </ul>
         
-        <h2>3.0 Functions</h2>
+        <h2>5.0 Functions</h2>
         
-        <h3>3.1 f_bComparePoissonLiklihoodApply</h3>
+        <h3>5.1 f_bComparePoissonLiklihoodApply</h3>
 
         <p><code>f_bComparePoissonLiklihoodApply = function(ivVector, cutoff=0.2)</code></p>
 
@@ -182,13 +229,13 @@
         <b>Rets: </b>
         <p>Returns true if the two values are equal.</p>
         
-	<img src="figure1.png">
+	<img src="images/figure2.png">
 
 	<p><b>Figure 1:</b> The figure shows a likelihood ratio plots of two read counts 40 (plus strand) and 65 (minus strand). The black line shows the plausible values of rates if the poisson rate is 40 and the red line shows plausible values of 65. The dotted blue and green lines show slices through the likelihood function i.e. the cutoff values. At a cutoff of 0.2 the two rates 40 and 65 are marginally equal and at a cutoff above this, the two rates will not be considered equal. However at a cutoff of 0.1 (blue dotted line) the two rates can be considered equal under a poisson distribution.</p>
 
 	<p>Considering Figure 1, the cutoff value can be changed according to the nature of the data sets. In our tests, a cutoff value of 0.2 (default value) gave good matches with BS-Seq data. This value can be adjusted based on the sequencing depth - if the sequencing was done deep enough then there will be good separation between signal and noise channels and a lower threshold may give good separation, and where sequencing depth is not enough then a threshold of 0.3 or higher may be more appropriate. However a relationship between the threshold cutoff and sequencing depth is an open question, and has not been explored in detail.</p>
 
-        <h3>3.2 f_mFastCountMateReadsOverRanges</h3>
+        <h3>5.2 f_mFastCountMateReadsOverRanges</h3>
 
         <p><code>f_mFastCountMateReadsOverRanges = function(gr.signal, bam.file, bPaired=T)</code></p>
         <b>Arguments:</b>
@@ -204,10 +251,9 @@
 
         <p><code>mRets = matrix(NA, nrow=length(gr.signal), ncol=4, dimnames=list(NULL, c('mp', 'mm', 'bp', 'bm')))</code></p>
 
-        <h3>3.3 f_oGRSeparateStrands</h3>
+        <h3>5.3 f_oGRSeparateStrands</h3>
         <p>Main function that performs strand separation, and uses functions in sections 3.1 and 3.2 to perform these tasks. The details of the function are explained in section 2.3.2.<p>
 
-          
       </section>
     </div>
 
