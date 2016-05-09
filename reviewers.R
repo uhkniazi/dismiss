@@ -64,14 +64,22 @@ fm = ivMinus < quantile(ivMinus, 0.95)
 fb = fp & fm
 # plots
 par(mfrow=c(1,2))
-hist(ivPlus[fb], xlab='Read Depth', main='Plus Strand Read Depth')
-hist(ivMinus[fb], xlab='Read Depth', main='Minus Strand Read Depth')
+hist(ivPlus[fb], xlab='Read Depth', main='Plus Strand Read Depth', prob=T)
+hist(ivMinus[fb], xlab='Read Depth', main='Minus Strand Read Depth', prob=T)
 par(mfrow=c(1,2))
-plot(ivPlus[fb], ivMinus[fb], pch=20, cex=0.5, col=oGRdismiss.s$mcols.strand_fac[fb]+1,
+# plot(ivPlus[fb], ivMinus[fb], pch=20, cex=0.5, col=oGRdismiss.s$mcols.strand_fac[fb]+1,
+#      xlab='Plus Stranded Reads', ylab='Minus Stranded reads')
+# #     main='Number of Reads from Plus and Minus Strands at each Peak Position')
+# plot.new()
+# legend('center', legend = c('Plus', 'Minus', 'Double'), fill=c('red', 'black', 'green'))
+grey.col = grey.colors(3, start = 0.1, end=0.7)
+grey.col = grey.col[c(2,3,1)]
+col.v = grey.col[oGRdismiss.s$mcols.strand_fac[fb]+1]
+plot(ivPlus[fb], ivMinus[fb], pch=20, cex=0.5, col=col.v,
      xlab='Plus Stranded Reads', ylab='Minus Stranded reads')
 #     main='Number of Reads from Plus and Minus Strands at each Peak Position')
 plot.new()
-legend('center', legend = c('Plus', 'Minus', 'Double'), fill=c('red', 'black', 'green'))
+legend('center', legend = c('Minus', 'Plus', 'Double'), fill=grey.col)
 summary(ivPlus[fb])
 summary(ivMinus[fb])
 summary(ivPlus[fb]+ivMinus[fb])
