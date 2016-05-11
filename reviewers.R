@@ -62,10 +62,24 @@ fp = ivPlus < quantile(ivPlus, 0.95)
 fm = ivMinus < quantile(ivMinus, 0.95)
 # merge the boolean variable
 fb = fp & fm
+# if we want only the stranded regions read depth
+sp = as.vector(strand(oGRdismiss.s) == '+')
+sm = as.vector(strand(oGRdismiss.s) == '-')
 # plots
 par(mfrow=c(1,2))
 hist(ivPlus[fb], xlab='Read Depth', main='Plus Strand Read Depth', prob=T)
 hist(ivMinus[fb], xlab='Read Depth', main='Minus Strand Read Depth', prob=T)
+
+# if we only want stranded region read depth
+# choose colours
+grey.col = grey.colors(3, start = 0.1, end=0.7)
+grey.col = grey.col[c(2,3,1)]
+
+plot(density(ivMinus[fb & sm]), xlab='Read Depth', main='Plus & Minus Strand Read Depth', ylab='Density', col=grey.col[1], lwd=3, 
+     lty=1, xlim=c(0, 210))
+lines(density(ivPlus[fb & sp]), col=grey.col[2], lwd=3, lty=2)
+legend('topright', legend = c('Minus', 'Plus'), col=grey.col[1:2], lty=1:2, lwd=3)
+
 par(mfrow=c(1,2))
 # plot(ivPlus[fb], ivMinus[fb], pch=20, cex=0.5, col=oGRdismiss.s$mcols.strand_fac[fb]+1,
 #      xlab='Plus Stranded Reads', ylab='Minus Stranded reads')
