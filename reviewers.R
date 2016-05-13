@@ -89,11 +89,13 @@ par(mfrow=c(1,2))
 grey.col = grey.colors(3, start = 0.1, end=0.7)
 grey.col = grey.col[c(2,3,1)]
 col.v = grey.col[oGRdismiss.s$mcols.strand_fac[fb]+1]
-plot(ivPlus[fb], ivMinus[fb], pch=20, cex=0.5, col=col.v,
-     xlab='Plus Stranded Reads', ylab='Minus Stranded reads')
+plot(jitter(ivPlus[fb]), jitter(ivMinus[fb]), pch=20, cex=0.5, col=col.v,
+     xlab='Plus Stranded Reads', ylab='Minus Stranded reads', xlim=c(0, 100), ylim=c(0,100), xaxt='n', yaxt='n')
+axis(1, at = seq(0, 110, by=10), labels = seq(0, 110, by=10), cex.axis=0.8)
+axis(2, at = seq(0, 110, by=10), labels = seq(0, 110, by=10), cex.axis=0.8)
 #     main='Number of Reads from Plus and Minus Strands at each Peak Position')
-plot.new()
-legend('center', legend = c('Minus', 'Plus', 'Double'), fill=grey.col)
+#plot.new()
+legend('topright', legend = c('Minus', 'Plus', 'Double'), fill=grey.col)
 summary(ivPlus[fb])
 summary(ivMinus[fb])
 summary(ivPlus[fb]+ivMinus[fb])
